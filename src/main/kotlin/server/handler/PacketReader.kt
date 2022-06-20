@@ -10,8 +10,6 @@ class PacketReader : ChannelInboundHandlerAdapter() {
     if (msg !is ByteBuf) {
       return
     }
-
-
   }
 
 }
