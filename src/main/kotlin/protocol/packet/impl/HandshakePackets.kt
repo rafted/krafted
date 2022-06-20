@@ -1,8 +1,9 @@
 package protocol.packet.impl
 
-import protocol.Datatypes.readVarInt
 import protocol.packet.Sender
 import protocol.packet.createPacket
+import protocol.readString
+import protocol.readVarInt
 import server.connection.State
 
 object HandshakePackets {
@@ -14,7 +15,7 @@ object HandshakePackets {
     unpack {
       return@unpack mapOf(
         "protocolVersion" to it.readVarInt(),
-    //          "serverAddress" to buf.readString(),
+        "serverAddress" to it.readString(),
         "port" to it.readUnsignedShort(),
         "nextState" to it.readVarInt()
       )
@@ -22,3 +23,4 @@ object HandshakePackets {
   }
 
 }
+

@@ -2,51 +2,55 @@ package protocol
 
 import io.netty.buffer.ByteBuf
 
-object Datatypes {
+private const val SEGMENT_BITS = 0x7F
+private const val CONTINUE_BIT = 0x80
 
-  private const val SEGMENT_BITS = 0x7F
-  private const val CONTINUE_BIT = 0x80
+fun ByteBuf.readVarInt(): Int {
+  var value = 0
+  var position = 0
+  var currentByte: Byte
 
-  fun ByteBuf.readVarInt(): Int {
-    var value = 0
-    var position = 0
-    var currentByte: Byte
+  while (true) {
+    currentByte = readByte()
+    value = value or (currentByte.toInt() and SEGMENT_BITS shl position)
 
-    while (true) {
-      currentByte = readByte()
-      value = value or (currentByte.toInt() and SEGMENT_BITS shl position)
+    if (currentByte.toInt() and CONTINUE_BIT == 0)
+      break
 
-      if (currentByte.toInt() and CONTINUE_BIT == 0)
-        break
+    position += 7
 
-      position += 7
-
-      if (position >= 32)
-        throw RuntimeException("VarInt is too big")
-    }
-
-    return value
+    if (position >= 32)
+      throw RuntimeException("VarInt is too big")
   }
 
-  fun ByteBuf.readVarLong(): Long {
-    var value: Long = 0
-    var position = 0
-    var currentByte: Byte
+  return value
+}
 
-    while (true) {
-      currentByte = readByte()
-      value = value or ((currentByte.toInt() and SEGMENT_BITS shl position).toLong())
+fun ByteBuf.readVarLong(): Long {
+  var value: Long = 0
+  var position = 0
+  var currentByte: Byte
 
-      if (currentByte.toInt() and CONTINUE_BIT == 0)
-        break
+  while (true) {
+    currentByte = readByte()
+    value = value or ((currentByte.toInt() and SEGMENT_BITS shl position).toLong())
 
-      position += 7
+    if (currentByte.toInt() and CONTINUE_BIT == 0)
+      break
 
-      if (position >= 64)
-        throw RuntimeException("VarInt is too big")
-    }
+    position += 7
 
-    return value
+    if (position >= 64)
+      throw RuntimeException("VarInt is too big")
   }
 
+  return value
+}
+
+
+fun ByteBuf.readString(): String {
+  val length = readVarInt()
+  val bytes = readBytes(length)
+
+  return bytes.toString(Charsets.UTF_8)
 }
