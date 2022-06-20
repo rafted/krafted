@@ -6,20 +6,23 @@ import protocol.packet.Sender
 import protocol.readString
 import protocol.readVarInt
 import server.connection.State
+import kotlin.properties.Delegates
 
 class HandshakePacket : Packet {
   override val id = 0x00
   override val sender = Sender.Client
   override val state = State.Handshake
-  override var fields: Map<String, Any> = mutableMapOf()
+
+  var protocolVersion by Delegates.notNull<Int>()
+  lateinit var serverAddress: String
+  var serverPort by Delegates.notNull<Int>()
+  var nextState by Delegates.notNull<Int>()
 
   override fun unpack(buffer: ByteBuf) {
-    this.fields = mapOf(
-      "protocolVersion" to buffer.readVarInt(),
-      "serverAddress" to buffer.readString(),
-      "serverPort" to buffer.readUnsignedShort(),
-      "nextState" to buffer.readVarInt()
-    )
+    protocolVersion = buffer.readVarInt()
+    serverAddress = buffer.readString()
+    serverPort = buffer.readUnsignedShort()
+    nextState = buffer.readVarInt()
   }
 
   override fun pack(): ByteBuf {

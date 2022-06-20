@@ -8,9 +8,6 @@ interface Packet {
     val sender: Sender
     val state: State
 
-    // data about the packet, not the definition of the packet
-    var fields: Map<String, Any>
-
     fun unpack(buffer: ByteBuf)
     fun pack(): ByteBuf
 }
