@@ -12,14 +12,10 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val length = msg.readVarInt()
             val id = msg.readVarInt()
 
-            println("Packet received: $id")
-
             PacketRegistry.packetMap[id]?.let {
                 val packet = it()
 
                 packet.unpack(msg)
-
-//        println(packet.fields)
             }
         }
     }
