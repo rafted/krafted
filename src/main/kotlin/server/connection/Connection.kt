@@ -5,5 +5,6 @@ import io.netty.channel.ChannelId
 
 data class Connection (
     val id: ChannelId,
+    val state: State,
     val channel: Channel
 )
