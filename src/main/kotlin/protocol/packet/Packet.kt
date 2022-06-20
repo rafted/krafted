@@ -11,11 +11,11 @@ interface Packet {
     // data about the packet, not the definition of the packet
     var fields: Map<String, Any>
 
-    fun unpack(data: ByteBuf)
+    fun unpack(buffer: ByteBuf)
     fun pack(): ByteBuf
 }
 
-
+/*
 class PacketBuilder {
 
     private var id: Int = 0
@@ -72,3 +72,4 @@ fun createPacket(init: PacketBuilder.() -> Unit) : Packet {
     builder.init()
     return builder.build()
 }
+ */

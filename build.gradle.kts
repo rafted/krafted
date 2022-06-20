@@ -19,6 +19,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.5")
     implementation("org.slf4j:slf4j-simple:1.6.4")
     implementation("commons-codec:commons-codec:1.15")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     compileOnly("ch.qos.logback:logback-classic:1.2.11")
 }
 

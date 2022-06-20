@@ -11,11 +11,11 @@ import org.slf4j.LoggerFactory
 import server.connection.Connection
 
 data class ServerConfig(
-    val port: Int,
-    val host: String
+  val host: String,
+  val port: Int,
 )
 
-class Server(config: ServerConfig) {
+class Server(val config: ServerConfig) {
 
  companion object {
    lateinit var instance: Server
@@ -39,6 +39,9 @@ class Server(config: ServerConfig) {
       bootstrap.channel(NioServerSocketChannel::class.java)
       bootstrap.handler(LoggingHandler(LogLevel.DEBUG))
       bootstrap.childHandler(ServerInitializer())
+
+      val channel = bootstrap.bind(this.config.host, this.config.port).sync().channel()
+      channel.closeFuture().sync()
 
     } finally {
       bossGroup.shutdownGracefully()
