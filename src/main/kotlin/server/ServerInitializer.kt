@@ -3,10 +3,14 @@ package server
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import server.connection.Connection
+import server.handler.PacketReader
 
 class ServerInitializer : ChannelHandler {
   override fun handlerAdded(ctx: ChannelHandlerContext?) {
     ctx?.let {
+      ctx.pipeline()
+        .addLast(PacketReader())
+
       val connection = Connection(ctx.channel().id(), ctx.channel())
 
       Server.instance.connections.add(connection)
