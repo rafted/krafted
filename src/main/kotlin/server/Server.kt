@@ -1,7 +1,6 @@
 package server
 
 import io.netty.bootstrap.ServerBootstrap
-import io.netty.channel.ChannelHandler
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel

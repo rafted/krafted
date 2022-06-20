@@ -6,12 +6,9 @@ import io.netty.channel.ChannelInboundHandlerAdapter
 import protocol.packet.PacketRegistry
 import protocol.readVarInt
 
-class PacketReader : ChannelInboundHandlerAdapter()
-{
-    override fun channelRead(ctx: ChannelHandlerContext, msg: Any)
-    {
-        if (msg is ByteBuf)
-        {
+class PacketReader : ChannelInboundHandlerAdapter() {
+    override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
+        if (msg is ByteBuf) {
             val length = msg.readVarInt()
             val id = msg.readVarInt()
 
