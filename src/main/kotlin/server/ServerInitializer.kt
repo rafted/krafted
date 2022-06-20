@@ -3,6 +3,7 @@ package server
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import server.connection.Connection
+import server.connection.State
 import server.handler.PacketReader
 
 class ServerInitializer : ChannelHandler {
@@ -11,7 +12,7 @@ class ServerInitializer : ChannelHandler {
       ctx.pipeline()
         .addLast(PacketReader())
 
-      val connection = Connection(ctx.channel().id(), ctx.channel())
+      val connection = Connection(ctx.channel().id(), State.Handshake, ctx.channel())
 
       Server.instance.connections.add(connection)
       Server.instance.logger.info("New Connection: ${connection.id}")

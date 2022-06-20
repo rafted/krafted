@@ -2,7 +2,7 @@ package protocol.packet
 
 enum class Sender {
 
-  CLIENT,
-  SERVER
+  Client,
+  Server
 
 }

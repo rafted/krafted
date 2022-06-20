@@ -1,11 +1,9 @@
 package server.connection
 
 enum class State {
-
-  HANDSHAKE,
-  STATUS,
-  LOGIN,
-  PLAY,
-  CLOSED
-
+  Handshake,
+  Status,
+  Login,
+  Play,
+  Closed
 }
