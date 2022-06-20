@@ -1,0 +1,3 @@
+package event
+
+interface Event { }
