@@ -12,18 +12,26 @@ import protocol.packet.impl.status.RequestPacketEvent
 import protocol.readVarInt
 import server.Server
 import server.connection.Connection
+import kotlin.experimental.and
 
 class PacketReader : ChannelInboundHandlerAdapter() {
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
-        if (msg is ByteBuf) {
+        if (msg !is ByteBuf) {
+            return
+        }
+
+        while (msg.isReadable) {
+            val length = msg.readVarInt()
+            val slice = msg.readSlice(length)
+
             val connection: Connection = Server.findConnection(ctx.channel())!!
 
-            val length = msg.readVarInt()
-            val id = msg.readVarInt()
+            val id = slice.readVarInt()
 
             PacketRegistry.findPacket(id, connection.state, Direction.Client)?.let {
-                val packet = it()
-                packet.unpack(msg)
+                val packet = it().apply {
+                    unpack(slice)
+                }
 
                 val eventBus = Server.eventBus
 
@@ -34,6 +42,7 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             }
         }
     }
+
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         if (ctx != null) {
