@@ -4,6 +4,8 @@ import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import server.connection.Connection
 import server.connection.State
+import server.connection.event.ConnectionClosedEvent
+import server.connection.event.ConnectionEstablishedEvent
 import server.handler.PacketReader
 
 class ServerInitializer : ChannelHandler {
@@ -16,6 +18,8 @@ class ServerInitializer : ChannelHandler {
 
             Server.connections.add(connection)
             Server.logger.info("New Connection: ${connection.id}")
+
+            Server.eventBus.post(ConnectionEstablishedEvent(connection))
         }
     }
 
@@ -26,6 +30,8 @@ class ServerInitializer : ChannelHandler {
             connection?.let {
                 Server.connections.remove(it)
                 Server.logger.info("Removed Connection: ${connection.id}")
+
+                Server.eventBus.post(ConnectionClosedEvent(connection))
             }
         }
     }

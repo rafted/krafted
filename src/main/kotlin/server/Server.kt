@@ -3,6 +3,7 @@ package server
 import event.EventBus
 import event.EventBusImpl
 import io.netty.bootstrap.ServerBootstrap
+import io.netty.channel.Channel
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel
@@ -54,5 +55,14 @@ object Server {
 
     private fun registerListeners() {
         eventBus.subscribe(HandshakeListener())
+    }
+
+    fun findConnection(channel: Channel): Connection? {
+        return this.connections.find { it.channel == channel }
+    }
+
+
+    fun closeConnection(connection: Connection) {
+
     }
 }
