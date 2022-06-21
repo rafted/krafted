@@ -3,8 +3,12 @@ package server.handler
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
+import protocol.packet.PacketRegistry
+import protocol.packet.Sender
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
+import protocol.packet.impl.status.RequestPacket
+import protocol.packet.impl.status.RequestPacketEvent
 import protocol.readVarInt
 import server.Server
 import server.connection.Connection
@@ -18,13 +22,15 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val length = msg.readVarInt()
             val id = msg.readVarInt()
 
-            connection.state.packets[id]?.let {
+            PacketRegistry.findPacket(id, connection.state, Sender.Client)?.let {
                 val packet = it()
                 packet.unpack(msg)
 
                 val eventBus = Server.eventBus
-                if (packet is HandshakePacket) {
-                    eventBus.post(HandshakePacketEvent(connection, packet))
+
+                when (packet) {
+                    is HandshakePacket -> eventBus.post(HandshakePacketEvent(connection, packet))
+                    is RequestPacket -> eventBus.post(RequestPacketEvent(connection, packet))
                 }
             }
         }
