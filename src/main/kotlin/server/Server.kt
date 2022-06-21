@@ -1,10 +1,13 @@
 package server
 
+import event.EventBus
+import event.EventBusImpl
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel
 import io.netty.handler.logging.LoggingHandler
+import logic.listeners.HandshakeListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import server.connection.Connection
@@ -19,9 +22,12 @@ object Server {
 
     val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
+    val eventBus: EventBus = EventBusImpl()
 
     fun start(config: ServerConfig) {
         this.config = config
+
+        this.registerListeners()
 
         val bossGroup = NioEventLoopGroup(1)
         val workerGroup = NioEventLoopGroup()
@@ -44,5 +50,9 @@ object Server {
             bossGroup.shutdownGracefully()
             workerGroup.shutdownGracefully()
         }
+    }
+
+    private fun registerListeners() {
+        eventBus.subscribe(HandshakeListener())
     }
 }

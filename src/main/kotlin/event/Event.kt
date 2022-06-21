@@ -1,3 +1,3 @@
 package event
 
-interface Event { }
+interface Event

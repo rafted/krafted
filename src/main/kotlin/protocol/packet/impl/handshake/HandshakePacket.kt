@@ -1,5 +1,6 @@
 package protocol.packet.impl.handshake
 
+import event.Event
 import io.netty.buffer.ByteBuf
 import protocol.packet.Packet
 import protocol.packet.Sender
@@ -30,3 +31,5 @@ class HandshakePacket : Packet {
         TODO("Not yet implemented")
     }
 }
+
+data class HandshakePacketEvent(val packet: HandshakePacket) : Event
