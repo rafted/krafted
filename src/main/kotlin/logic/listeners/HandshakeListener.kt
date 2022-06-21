@@ -1,8 +1,7 @@
 package logic.listeners
 
-import event.BusHandle
+import event.Listen
 import event.BusListener
-import event.Listener
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacketEvent
 import protocol.packet.impl.status.ResponsePacket
@@ -23,7 +22,7 @@ object HandshakeListener : BusListener {
         }
     }
 
-    @BusHandle
+    @Listen
     fun onHandshake(event: HandshakePacketEvent) {
         val nextState = if (event.packet.nextState == 1) {
             State.Status
@@ -34,7 +33,7 @@ object HandshakeListener : BusListener {
         event.connection.state = nextState
     }
 
-    @BusHandle
+    @Listen
     fun onRequest(event: RequestPacketEvent) {
         if (event.connection.state == State.Status) {
             val packet = ResponsePacket()

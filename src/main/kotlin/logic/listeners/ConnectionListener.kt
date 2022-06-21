@@ -1,15 +1,15 @@
 package logic.listeners
 
-import event.BusHandle
+import event.Listen
 import event.BusListener
 import server.connection.ConnectionClosedEvent
 import server.connection.ConnectionEstablishedEvent
 
 object ConnectionListener : BusListener {
 
-    @BusHandle
+    @Listen
     fun onConnectionEstablished(event: ConnectionEstablishedEvent) { }
 
-    @BusHandle
+    @Listen
     fun onConnectionClosed(event: ConnectionClosedEvent) { }
 }
