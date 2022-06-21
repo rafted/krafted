@@ -1,25 +1,13 @@
 package logic.listeners
 
 import event.BusListener
+import event.Listen
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacketEvent
 import protocol.packet.impl.status.ResponsePacket
-import server.Server
 import server.connection.State
 
 object HandshakeListener : BusListener {
-
-    init {
-        Server.eventBus.subscribe<HandshakePacketEvent> {
-            val nextState = if (it.packet.nextState == 1) {
-                State.Status
-            } else {
-                State.Login
-            }
-
-            it.connection.state = nextState
-        }
-    }
 
     @Listen
     fun onHandshake(event: HandshakePacketEvent) {

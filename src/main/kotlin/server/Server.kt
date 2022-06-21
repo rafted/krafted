@@ -3,7 +3,6 @@ package server
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import event.EventBus
-import event.EventBusImpl
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.Channel
 import io.netty.channel.nio.NioEventLoopGroup
@@ -31,7 +30,7 @@ object Server {
 
     val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
-    val eventBus: EventBus = EventBusImpl
+    val eventBus: EventBus = EventBus
     val gson: Gson = GsonBuilder().create()
 
     fun start(config: ServerConfig) {

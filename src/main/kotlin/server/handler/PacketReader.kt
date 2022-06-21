@@ -3,8 +3,8 @@ package server.handler
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
-import protocol.packet.PacketRegistry
 import protocol.packet.Direction
+import protocol.packet.PacketRegistry
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacket
@@ -12,7 +12,6 @@ import protocol.packet.impl.status.RequestPacketEvent
 import protocol.readVarInt
 import server.Server
 import server.connection.Connection
-import server.connection.ConnectionClosedEvent
 
 class PacketReader : ChannelInboundHandlerAdapter() {
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {

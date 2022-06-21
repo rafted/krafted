@@ -16,7 +16,7 @@ object EventBus {
 
     fun subscribe(listener: BusListener) {
         for (method in listener.javaClass.declaredMethods) {
-            if (method.isAnnotationPresent(Listen::class.java)) {
+            if (!method.isAnnotationPresent(Listen::class.java)) {
                 continue
             }
 

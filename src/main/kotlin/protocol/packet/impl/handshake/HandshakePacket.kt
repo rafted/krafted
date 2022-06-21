@@ -2,8 +2,8 @@ package protocol.packet.impl.handshake
 
 import event.Event
 import io.netty.buffer.ByteBuf
-import protocol.packet.Packet
 import protocol.packet.Direction
+import protocol.packet.Packet
 import protocol.readString
 import protocol.readVarInt
 import server.connection.Connection

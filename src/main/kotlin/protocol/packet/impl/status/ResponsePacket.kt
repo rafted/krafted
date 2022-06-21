@@ -2,11 +2,11 @@ package protocol.packet.impl.status
 
 import event.Event
 import io.netty.buffer.ByteBuf
-import protocol.packet.Packet
 import protocol.packet.Direction
-import server.connection.Connection
+import protocol.packet.Packet
 import protocol.writeString
 import server.Server
+import server.connection.Connection
 import server.connection.State
 import java.util.*
 

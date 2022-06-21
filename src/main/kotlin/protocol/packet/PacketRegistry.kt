@@ -30,5 +30,4 @@ object PacketRegistry {
     fun findPacket(id: Int, state: State, direction: Direction): (() -> Packet)? {
         return packets[direction]?.get(state)?.get(id)
     }
-
 }

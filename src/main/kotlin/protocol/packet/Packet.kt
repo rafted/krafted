@@ -1,7 +1,6 @@
 package protocol.packet
 
 import io.netty.buffer.ByteBuf
-import server.connection.Connection
 import server.connection.State
 
 data class PacketId(val id: Int, val state: State, val direction: Direction) {
