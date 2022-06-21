@@ -1,7 +1,6 @@
-package server.connection.event
+package server.connection
 
 import event.Event
-import server.connection.Connection
 
 class ConnectionEstablishedEvent(val connection: Connection) : Event
 class ConnectionClosedEvent(val connection: Connection) : Event

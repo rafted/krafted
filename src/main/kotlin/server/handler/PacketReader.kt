@@ -8,7 +8,7 @@ import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.readVarInt
 import server.Server
-import server.connection.event.ConnectionClosedEvent
+import server.connection.ConnectionClosedEvent
 
 class PacketReader : ChannelInboundHandlerAdapter() {
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
@@ -30,9 +30,9 @@ class PacketReader : ChannelInboundHandlerAdapter() {
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         if (ctx != null) {
-            ctx.close()
-
             Server.findConnection(ctx.channel())?.let {
+                Server.closeConnection(it)
+
                 Server.eventBus.post(ConnectionClosedEvent(it))
             }
         }

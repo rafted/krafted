@@ -8,10 +8,12 @@ import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel
 import io.netty.handler.logging.LoggingHandler
+import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import server.connection.Connection
+import server.connection.ConnectionClosedEvent
 
 data class ServerConfig(
     val host: String,
@@ -55,14 +57,17 @@ object Server {
 
     private fun registerListeners() {
         eventBus.subscribe(HandshakeListener())
+        eventBus.subscribe(ConnectionListener())
     }
 
     fun findConnection(channel: Channel): Connection? {
         return this.connections.find { it.channel == channel }
     }
 
-
     fun closeConnection(connection: Connection) {
+        this.connections.remove(connection)
+        this.logger.info("Removed Connection: ${connection.id}")
 
+        this.eventBus.post(ConnectionClosedEvent(connection))
     }
 }
