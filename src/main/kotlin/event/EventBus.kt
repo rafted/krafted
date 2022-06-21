@@ -1,44 +1,31 @@
 package event
 
-interface EventBus {
-    val listeners: Map<Listener, List<HandleData>>
+interface Event
 
-    fun post(event: Event)
-    fun subscribe(listener: Listener)
-}
+data class Listener<T : Event> (
+    val type: Class<T>,
+    val action: (T) -> Unit
+)
 
-object EventBusImpl : EventBus {
-    override val listeners = hashMapOf<Listener, MutableList<HandleData>>()
+object EventBus {
+    private val handlers = mutableListOf<Listener<*>>()
 
-    override fun post(event: Event) {
-        for (listener in listeners) {
-            val data = listener.value
-
-            data
-                .filter { it.type == event.javaClass }
-                .forEach {
-                    it.method.invoke(it.parent, event)
-                }
+    inline fun <reified T : Event> subscribe(noinline action: (T) -> Unit) {
+        subscribe(T::class.java) {
+            action.invoke(it)
         }
     }
 
-    override fun subscribe(listener: Listener) {
-        this.listeners.putIfAbsent(listener, mutableListOf())
+    fun <T : Event> subscribe(type: Class<T>, action: (T) -> Unit) {
+        val listener = Listener(type, action)
 
-        listener.javaClass.declaredMethods
-            .filter { it.isAnnotationPresent(Handle::class.java) }
-            .forEach {
-                val handle = it.getAnnotation(Handle::class.java)
-
-                val type = if (handle.value == Event::class.java) {
-                    it.parameterTypes[0]
-                } else {
-                    handle.value.java
-                }
-
-                listeners[listener]!!.add(
-                    HandleData(listener, it, type)
-                )
-            }
+        handlers.add(listener)
     }
+
+   fun <T : Event> post(event: T) {
+       this.handlers
+           .filter { it.type == event::class.java }
+           .forEach { listener -> listener.action(event) }
+   }
+
 }

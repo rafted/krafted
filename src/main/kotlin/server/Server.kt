@@ -1,5 +1,7 @@
 package server
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import event.EventBus
 import event.EventBusImpl
 import io.netty.bootstrap.ServerBootstrap
@@ -12,6 +14,10 @@ import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import protocol.packet.impl.status.Description
+import protocol.packet.impl.status.Players
+import protocol.packet.impl.status.Response
+import protocol.packet.impl.status.Version
 import server.connection.Connection
 import server.connection.ConnectionClosedEvent
 
@@ -26,6 +32,7 @@ object Server {
     val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
     val eventBus: EventBus = EventBusImpl
+    val gson: Gson = GsonBuilder().create()
 
     fun start(config: ServerConfig) {
         this.config = config
@@ -69,5 +76,17 @@ object Server {
         this.logger.info("Removed Connection: ${connection.id}")
 
         this.eventBus.post(ConnectionClosedEvent(connection))
+    }
+
+    fun makeStatusRespose(): Response {
+        return Response(
+            version = Version(
+                protocolVersion = 47,
+                serverVersion = "1.8.9"
+            ),
+            players = Players(20, 0, emptyList()),
+            description = Description("A Minecraft Server"),
+            favicon = ""
+        )
     }
 }

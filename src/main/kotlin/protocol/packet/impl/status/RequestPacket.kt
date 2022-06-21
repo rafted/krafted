@@ -14,7 +14,8 @@ class RequestPacket : Packet {
 
     override fun unpack(buffer: ByteBuf) { }
 
-    override fun pack(buffer: ByteBuf) { }
+    override fun pack(buffer: ByteBuf) {
+    }
 }
 
 data class RequestPacketEvent(val connection: Connection, val packet: RequestPacket) : Event

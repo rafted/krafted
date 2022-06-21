@@ -36,13 +36,10 @@ class PacketReader : ChannelInboundHandlerAdapter() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         if (ctx != null) {
             Server.findConnection(ctx.channel())?.let {
                 Server.closeConnection(it)
-
-                Server.eventBus.post(ConnectionClosedEvent(it))
             }
         }
     }

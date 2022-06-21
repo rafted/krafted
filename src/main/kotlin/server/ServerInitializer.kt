@@ -5,13 +5,17 @@ import io.netty.channel.ChannelHandlerContext
 import server.connection.Connection
 import server.connection.ConnectionEstablishedEvent
 import server.connection.State
+import server.handler.PacketEncoder
 import server.handler.PacketReader
 
 object ServerInitializer : ChannelHandler {
     override fun handlerAdded(ctx: ChannelHandlerContext?) {
         ctx?.let {
             ctx.pipeline()
-                .addLast(PacketReader())
+                .addLast(
+                    PacketReader(),
+                    PacketEncoder()
+                )
 
             val connection = Connection(ctx.channel().id(), State.Handshake, ctx.channel())
 

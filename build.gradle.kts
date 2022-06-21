@@ -23,6 +23,7 @@ dependencies {
     implementation("commons-codec:commons-codec:1.15")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     compileOnly("ch.qos.logback:logback-classic:1.2.11")
+    implementation("com.google.code.gson:gson:2.9.0")
 }
 
 tasks.test {
