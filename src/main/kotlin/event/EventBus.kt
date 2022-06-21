@@ -1,5 +1,7 @@
 package event
 
+import server.Server
+
 interface Event
 
 data class Listener<T : Event>(
@@ -25,7 +27,7 @@ object EventBus {
             subscribe(
                 type.asSubclass(Event::class.java)
             ) {
-                method.invoke(it)
+                method.invoke(listener, it)
             }
         }
     }
