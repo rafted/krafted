@@ -53,3 +53,35 @@ fun ByteBuf.readString(): String {
 
     return bytes.toString(Charsets.UTF_8)
 }
+
+fun ByteBuf.writeString(data: String) {
+    writeVarInt(data.length)
+    this.writeBytes(data.toByteArray(Charsets.UTF_8))
+}
+
+
+fun ByteBuf.writeVarInt(data: Int) {
+    var value = data
+    while (true) {
+        if (value and SEGMENT_BITS == value) {
+            writeByte(value)
+            return
+        }
+
+        writeByte(value and SEGMENT_BITS or CONTINUE_BIT)
+        value = value ushr 7
+    }
+}
+
+fun ByteBuf.writeVarLong(data: Long) {
+    var value = data
+    while (true) {
+        if (value and SEGMENT_BITS.toLong() == value) {
+            writeByte(value.toInt())
+            return
+        }
+
+        writeByte((value and SEGMENT_BITS.toLong() or CONTINUE_BIT.toLong()).toInt())
+        value = value ushr 7
+    }
+}
