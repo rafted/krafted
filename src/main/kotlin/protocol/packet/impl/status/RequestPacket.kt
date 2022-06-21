@@ -2,7 +2,6 @@ package protocol.packet.impl.status
 
 import event.Event
 import io.netty.buffer.ByteBuf
-import io.netty.buffer.Unpooled
 import protocol.packet.Packet
 import protocol.packet.Sender
 import server.connection.Connection
@@ -15,9 +14,7 @@ class RequestPacket : Packet {
 
     override fun unpack(buffer: ByteBuf) { }
 
-    override fun pack(): ByteBuf {
-        return Unpooled.EMPTY_BUFFER
-    }
+    override fun pack(buffer: ByteBuf) { }
 }
 
 data class RequestPacketEvent(val connection: Connection, val packet: RequestPacket) : Event

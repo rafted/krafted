@@ -59,7 +59,6 @@ fun ByteBuf.writeString(data: String) {
     this.writeBytes(data.toByteArray(Charsets.UTF_8))
 }
 
-
 fun ByteBuf.writeVarInt(data: Int) {
     var value = data
     while (true) {

@@ -28,9 +28,7 @@ class HandshakePacket : Packet {
         nextState = buffer.readVarInt()
     }
 
-    override fun pack(): ByteBuf {
-        TODO("Not yet implemented")
-    }
+    override fun pack(buffer: ByteBuf) { }
 }
 
 data class HandshakePacketEvent(val connection: Connection, val packet: HandshakePacket) : Event

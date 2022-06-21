@@ -15,7 +15,7 @@ interface Packet {
     val sender: Sender
 
     fun unpack(buffer: ByteBuf)
-    fun pack(): ByteBuf
+    fun pack(buffer: ByteBuf)
 }
 
 /*
