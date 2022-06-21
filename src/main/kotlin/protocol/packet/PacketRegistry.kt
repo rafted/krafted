@@ -2,6 +2,7 @@ package protocol.packet
 
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.status.RequestPacket
+import protocol.packet.impl.status.ResponsePacket
 import server.connection.State
 
 object PacketRegistry {
@@ -11,7 +12,7 @@ object PacketRegistry {
             State.Handshake to mapOf(
                 0 to {
                     HandshakePacket()
-                     },
+                },
             ),
             State.Status to mapOf(
                 0 to {
@@ -19,14 +20,14 @@ object PacketRegistry {
                 },
             ),
         ),
-        Sender.Server to mapOf(
+        Direction.Server to mapOf(
             State.Status to mapOf(
                 0 to { ResponsePacket() },
             ),
         ),
     )
 
-    fun findPacket(id: Int, state: State, direction: Direction): ((Connection) -> Packet)? {
+    fun findPacket(id: Int, state: State, direction: Direction): (() -> Packet)? {
         return packets[direction]?.get(state)?.get(id)
     }
 
