@@ -7,7 +7,7 @@ import server.connection.ConnectionEstablishedEvent
 import server.connection.State
 import server.handler.PacketReader
 
-class ServerInitializer : ChannelHandler {
+object ServerInitializer : ChannelHandler {
     override fun handlerAdded(ctx: ChannelHandlerContext?) {
         ctx?.let {
             ctx.pipeline()

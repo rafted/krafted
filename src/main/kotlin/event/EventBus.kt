@@ -7,7 +7,7 @@ interface EventBus {
     fun subscribe(listener: Listener)
 }
 
-class EventBusImpl : EventBus {
+object EventBusImpl : EventBus {
     override val listeners = hashMapOf<Listener, MutableList<HandleData>>()
 
     override fun post(event: Event) {

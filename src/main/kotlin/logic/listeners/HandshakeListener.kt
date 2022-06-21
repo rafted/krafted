@@ -6,11 +6,11 @@ import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacketEvent
 import server.connection.State
 
-class HandshakeListener : Listener {
+object HandshakeListener : Listener {
 
     @Handle(HandshakePacketEvent::class)
     fun onHandshake(event: HandshakePacketEvent) {
-        var nextState = if (event.packet.nextState == 1) {
+        val nextState = if (event.packet.nextState == 1) {
             State.Status
         } else {
             State.Login

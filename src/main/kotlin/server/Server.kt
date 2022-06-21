@@ -25,7 +25,7 @@ object Server {
 
     val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
-    val eventBus: EventBus = EventBusImpl()
+    val eventBus: EventBus = EventBusImpl
 
     fun start(config: ServerConfig) {
         this.config = config
@@ -41,7 +41,7 @@ object Server {
                 this.group(bossGroup, workerGroup)
                 this.channel(NioServerSocketChannel::class.java)
                 this.handler(LoggingHandler(LogLevel.DEBUG))
-                this.childHandler(ServerInitializer())
+                this.childHandler(ServerInitializer)
             }
 
             val channel = bootstrap.bind(this.config.host, this.config.port)
@@ -56,8 +56,8 @@ object Server {
     }
 
     private fun registerListeners() {
-        eventBus.subscribe(HandshakeListener())
-        eventBus.subscribe(ConnectionListener())
+        eventBus.subscribe(HandshakeListener)
+        eventBus.subscribe(ConnectionListener)
     }
 
     fun findConnection(channel: Channel): Connection? {
