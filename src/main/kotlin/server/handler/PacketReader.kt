@@ -15,6 +15,7 @@ import server.connection.Connection
 
 class PacketReader : ChannelInboundHandlerAdapter() {
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
+
         if (msg is ByteBuf) {
             val connection: Connection = Server.findConnection(ctx.channel())!!
 
@@ -32,6 +33,8 @@ class PacketReader : ChannelInboundHandlerAdapter() {
                     is RequestPacket -> eventBus.post(RequestPacketEvent(connection, packet))
                 }
             }
+
+            msg.release()
         }
     }
 
