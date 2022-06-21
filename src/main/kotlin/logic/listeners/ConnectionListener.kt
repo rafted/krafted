@@ -8,13 +8,9 @@ import server.connection.ConnectionEstablishedEvent
 class ConnectionListener : Listener {
 
     @Handle(ConnectionEstablishedEvent::class)
-    fun onConnectionEstablished(event: ConnectionEstablishedEvent) {
-        println("Connection established")
-    }
+    fun onConnectionEstablished(event: ConnectionEstablishedEvent) { }
 
     @Handle(ConnectionClosedEvent::class)
-    fun onConnectionClosed(event: ConnectionClosedEvent) {
-        println("Connection closed")
-    }
+    fun onConnectionClosed(event: ConnectionClosedEvent) { }
 
 }

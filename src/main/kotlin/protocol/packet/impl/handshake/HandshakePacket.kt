@@ -6,6 +6,7 @@ import protocol.packet.Packet
 import protocol.packet.Sender
 import protocol.readString
 import protocol.readVarInt
+import server.connection.Connection
 import server.connection.State
 import kotlin.properties.Delegates
 
@@ -32,4 +33,4 @@ class HandshakePacket : Packet {
     }
 }
 
-data class HandshakePacketEvent(val packet: HandshakePacket) : Event
+data class HandshakePacketEvent(val connection: Connection, val packet: HandshakePacket) : Event

@@ -8,6 +8,5 @@ class HandshakeListener : Listener {
 
     @Handle(HandshakePacketEvent::class)
     fun onHandshake(event: HandshakePacketEvent) {
-        println(event)
     }
 }

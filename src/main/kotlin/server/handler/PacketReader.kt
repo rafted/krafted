@@ -8,6 +8,7 @@ import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.readVarInt
 import server.Server
+import server.connection.Connection
 import server.connection.ConnectionClosedEvent
 
 class PacketReader : ChannelInboundHandlerAdapter() {
@@ -20,9 +21,11 @@ class PacketReader : ChannelInboundHandlerAdapter() {
                 val packet = it()
                 packet.unpack(msg)
 
+                val connection: Connection = Server.findConnection(ctx.channel())!!
+
                 val eventBus = Server.eventBus
                 if (packet is HandshakePacket) {
-                    eventBus.post(HandshakePacketEvent(packet))
+                    eventBus.post(HandshakePacketEvent(connection, packet))
                 }
             }
         }
