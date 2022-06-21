@@ -12,5 +12,4 @@ class ConnectionListener : Listener {
 
     @Handle(ConnectionClosedEvent::class)
     fun onConnectionClosed(event: ConnectionClosedEvent) { }
-
 }

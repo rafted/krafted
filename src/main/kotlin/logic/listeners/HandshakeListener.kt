@@ -9,7 +9,7 @@ class HandshakeListener : Listener {
 
     @Handle(HandshakePacketEvent::class)
     fun onHandshake(event: HandshakePacketEvent) {
-        var nextState = if(event.packet.nextState == 1) {
+        var nextState = if (event.packet.nextState == 1) {
             State.Status
         } else {
             State.Login
