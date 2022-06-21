@@ -3,7 +3,6 @@ package server.handler
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
-import protocol.packet.PacketRegistry
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.readVarInt
@@ -14,14 +13,14 @@ import server.connection.ConnectionClosedEvent
 class PacketReader : ChannelInboundHandlerAdapter() {
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
         if (msg is ByteBuf) {
+            val connection: Connection = Server.findConnection(ctx.channel())!!
+
             val length = msg.readVarInt()
             val id = msg.readVarInt()
 
-            PacketRegistry.packetMap[id]?.let {
+            connection.state.packets[id]?.let {
                 val packet = it()
                 packet.unpack(msg)
-
-                val connection: Connection = Server.findConnection(ctx.channel())!!
 
                 val eventBus = Server.eventBus
                 if (packet is HandshakePacket) {
