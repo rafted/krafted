@@ -1,18 +1,19 @@
 package protocol.packet
 
 import io.netty.buffer.ByteBuf
+import server.connection.Connection
 import server.connection.State
 
-data class PacketId(val id: Int, val state: State, val sender: Sender) {
+data class PacketId(val id: Int, val state: State, val direction: Direction) {
     override fun toString(): String {
-        return "$id:$state:$sender"
+        return "$id:$state:$direction"
     }
 }
 
 interface Packet {
     val id: Int
     val state: State
-    val sender: Sender
+    val direction: Direction
 
     fun unpack(buffer: ByteBuf)
     fun pack(buffer: ByteBuf)

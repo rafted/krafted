@@ -3,7 +3,7 @@ package protocol.packet.impl.handshake
 import event.Event
 import io.netty.buffer.ByteBuf
 import protocol.packet.Packet
-import protocol.packet.Sender
+import protocol.packet.Direction
 import protocol.readString
 import protocol.readVarInt
 import server.connection.Connection
@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 
 class HandshakePacket : Packet {
     override val id = 0x00
-    override val sender = Sender.Client
+    override val direction = Direction.Client
     override val state = State.Handshake
 
     lateinit var serverAddress: String

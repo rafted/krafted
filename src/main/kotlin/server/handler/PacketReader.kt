@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import protocol.packet.PacketRegistry
-import protocol.packet.Sender
+import protocol.packet.Direction
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacket
@@ -22,7 +22,7 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val length = msg.readVarInt()
             val id = msg.readVarInt()
 
-            PacketRegistry.findPacket(id, connection.state, Sender.Client)?.let {
+            PacketRegistry.findPacket(id, connection.state, Direction.Client)?.let {
                 val packet = it()
                 packet.unpack(msg)
 

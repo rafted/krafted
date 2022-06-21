@@ -1,7 +1,6 @@
 package protocol.packet
 
-enum class Sender {
-
+enum class Direction {
     Client,
     Server
 }
