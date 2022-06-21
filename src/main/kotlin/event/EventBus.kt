@@ -16,8 +16,9 @@ object EventBus {
 
     fun subscribe(listener: BusListener) {
         for (method in listener.javaClass.declaredMethods) {
-            method.getAnnotation(Listen::class.java)
-                ?: continue
+            if (method.isAnnotationPresent(Listen::class.java)) {
+                continue
+            }
 
             val type = method.parameterTypes.getOrNull(0) ?: continue
 
