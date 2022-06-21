@@ -1,6 +1,5 @@
 package logic.listeners
 
-import event.Listen
 import event.BusListener
 import protocol.packet.impl.handshake.HandshakePacketEvent
 import protocol.packet.impl.status.RequestPacketEvent

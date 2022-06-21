@@ -1,6 +1,5 @@
 package logic.listeners
 
-import event.Listen
 import event.BusListener
 import server.connection.ConnectionClosedEvent
 import server.connection.ConnectionEstablishedEvent
