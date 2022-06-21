@@ -15,7 +15,7 @@ class EventBusImpl : EventBus {
             val data = listener.value
 
             data
-                .filter { it.javaClass == event.javaClass }
+                .filter { it.type == event.javaClass }
                 .forEach {
                     it.method.invoke(it.parent, event)
                 }
