@@ -1,5 +1,6 @@
 package event
 
+import protocol.packet.PacketEvent
 import server.Server
 
 interface Event
@@ -45,6 +46,10 @@ object EventBus {
     }
 
     fun <T : Event> post(event: T) {
+        if(event !is PacketEvent) {
+            Server.logger.debug(event.javaClass.simpleName + " posted")
+        }
+
         this.handlers
             .filter { it.type == event::class.java }
             .forEach {
