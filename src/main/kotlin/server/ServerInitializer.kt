@@ -11,11 +11,10 @@ import server.handler.PacketReader
 object ServerInitializer : ChannelHandler {
     override fun handlerAdded(ctx: ChannelHandlerContext?) {
         ctx?.let {
-            ctx.pipeline()
-                .addLast(
-                    PacketReader(),
-                    PacketEncoder()
-                )
+            val pipeline = ctx.pipeline()
+
+            pipeline.addLast(PacketReader())
+            pipeline.addLast(PacketEncoder())
 
             val connection = Connection(ctx.channel().id(), State.Handshake, ctx.channel())
 

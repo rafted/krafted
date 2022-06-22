@@ -10,8 +10,6 @@ data class Connection(
     val channel: Channel
 ) {
     fun send(packet: Packet) {
-        println(packet)
-        channel.write(packet)
-        channel.flush()
+        channel.writeAndFlush(packet)
     }
 }

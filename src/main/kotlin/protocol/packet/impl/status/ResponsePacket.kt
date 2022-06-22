@@ -32,6 +32,7 @@ class ResponsePacket : Packet {
     override fun unpack(buffer: ByteBuf) { }
 
     override fun pack(buffer: ByteBuf) {
+        println(Server.gson.toJson(this.response))
         buffer.writeString(Server.gson.toJson(this.response))
     }
 }
