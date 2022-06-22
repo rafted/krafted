@@ -33,7 +33,7 @@ data class ChatColor(
         val GRAY = ChatColor('7', "Gray", "gray", 170, 170, 170, true)
         val DARK_GRAY = ChatColor('8', "Dark gray", "dark_gray", 85, 85, 85, true)
         val BLUE = ChatColor('9', "Blue", "blue", 85, 85, 255, true)
-        val LIGHT_GREEN = ChatColor('a', "Bright green", "light_green", 85, 255, 85, true)
+        val LIGHT_GREEN = ChatColor('a', "Bright green", "light_green", 85, 255, 85, true) // TODO: 6/22/2022 appears as grey
         val CYAN = ChatColor('b', "Cyan", "aqua", 85, 255, 255, true)
         val RED = ChatColor('c', "Red", "red", 255, 85, 85, true)
         val PINK = ChatColor('d', "Pink", "light_purple", 255, 85, 255, true)

@@ -22,12 +22,16 @@ object PacketRegistry {
         ),
         Direction.Server to mapOf(
             State.Status to mapOf(
-                0 to { ResponsePacket() },
+                0 to {
+                    ResponsePacket()
+                },
             ),
         ),
     )
 
     fun findPacket(id: Int, state: State, direction: Direction): (() -> Packet)? {
-        return packets[direction]?.get(state)?.get(id)
+        return packets[direction]
+            ?.get(state)
+            ?.get(id)
     }
 }

@@ -26,15 +26,16 @@ object ServerInitializer : ChannelHandler {
     }
 
     override fun handlerRemoved(ctx: ChannelHandlerContext?) {
-        ctx?.let {
-            val connection = Server.connections.find { it.id == ctx.channel().id() }
+        val connection = Server.connections.find {
+            it.id == ctx?.channel()?.id()
+        } ?: return
 
-            connection?.let {
-                Server.closeConnection(connection)
-            }
-        }
+
+        Server.closeConnection(connection)
     }
 
+
+    @Deprecated("Deprecated in Java", ReplaceWith("Server.logger.error(\"Exception caught: \${cause?.message}\")"))
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         Server.logger.error("Exception caught: ${cause?.message}")
     }

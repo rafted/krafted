@@ -1,9 +1,11 @@
 package server.handler
 
+import event.EventBus
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import protocol.packet.Direction
+import protocol.packet.PacketEvent
 import protocol.packet.PacketRegistry
 import protocol.packet.impl.handshake.HandshakePacket
 import protocol.packet.impl.handshake.HandshakePacketEvent
@@ -35,16 +37,12 @@ class PacketReader : ChannelInboundHandlerAdapter() {
                     unpack(slice)
                 }
 
-                val eventBus = Server.eventBus
-
-                when (packet) {
-                    is HandshakePacket -> eventBus.post(HandshakePacketEvent(connection, packet))
-                    is RequestPacket -> eventBus.post(RequestPacketEvent(connection, packet))
-                }
+                EventBus.post(
+                    PacketEvent(packet, connection)
+                )
             }
         }
     }
-
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         if (ctx != null) {

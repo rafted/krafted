@@ -7,7 +7,6 @@ import event.Listen
 import protocol.packet.impl.status.ResponsePacketEvent
 import server.connection.ConnectionClosedEvent
 import server.connection.ConnectionEstablishedEvent
-import java.awt.Color
 
 object ConnectionListener : BusListener {
 
@@ -16,18 +15,18 @@ object ConnectionListener : BusListener {
     fun onResponsePacket(event: ResponsePacketEvent) {
         event.players.max = 69
         event.description = ChatComponent()
-            .text("hey")
-            .bold(true)
-            .color(ChatColor.CYAN)
+            .text("                Hypixel Network")
+            .bold(false)
+            .color(ChatColor.LIGHT_GREEN)
             .child {
-                it.text(" child")
+                it.text(" [1.8-1.19]")
                     .color(ChatColor.RED)
                     .bold(false)
             }
             .child {
-                it.text(" second child")
-                    .color(ChatColor.PINK)
-                    .bold(false)
+                it.text("\n          SKYBLOCK, BED WARS + MORE")
+                    .color(ChatColor.YELLOW)
+                    .bold(true)
             }
     }
 

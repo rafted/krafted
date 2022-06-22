@@ -21,25 +21,3 @@ object UUIDSerializer : KSerializer<UUID> {
         encoder.encodeString(value.toString())
     }
 }
-
-object ColorSerializer : KSerializer<ChatColor> {
-    override val descriptor = PrimitiveSerialDescriptor("UUID", PrimitiveKind.STRING)
-
-    override fun deserialize(decoder: Decoder): ChatColor {
-        val text = decoder.decodeString()
-
-        return ColorMappings.colorById(text) ?: ChatColor(
-            ' ', "", "", Color.decode(text).rgb
-        )
-    }
-
-    override fun serialize(encoder: Encoder, value: ChatColor) {
-        encoder.encodeString(
-            if (value.vanilla) {
-                value.id
-            } else {
-                Integer.toHexString(value.rgb)
-            }
-        )
-    }
-}

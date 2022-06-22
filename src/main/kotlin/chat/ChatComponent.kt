@@ -1,8 +1,14 @@
 package chat
 
 import chat.color.ChatColor
+import chat.color.ColorMappings
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import util.ColorSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import java.awt.Color
 
 @Serializable
 data class ChatComponent(
@@ -31,5 +37,27 @@ data class ChatComponent(
     fun child(builder: (ChatComponent) -> ChatComponent): ChatComponent {
         this.extra.add(builder.invoke(ChatComponent()))
         return this
+    }
+}
+
+private object ColorSerializer : KSerializer<ChatColor> {
+    override val descriptor = PrimitiveSerialDescriptor("UUID", PrimitiveKind.STRING)
+
+    override fun deserialize(decoder: Decoder): ChatColor {
+        val text = decoder.decodeString()
+
+        return ColorMappings.colorById(text) ?: ChatColor(
+            ' ', "", "", Color.decode(text).rgb
+        )
+    }
+
+    override fun serialize(encoder: Encoder, value: ChatColor) {
+        encoder.encodeString(
+            if (value.vanilla) {
+                value.id
+            } else {
+                Integer.toHexString(value.rgb)
+            }
+        )
     }
 }
