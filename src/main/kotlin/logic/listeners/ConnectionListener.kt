@@ -1,5 +1,7 @@
 package logic.listeners
 
+import chat.ChatComponent
+import chat.color.ChatColor
 import event.BusListener
 import event.Listen
 import protocol.packet.impl.status.ResponsePacketEvent
@@ -12,7 +14,14 @@ object ConnectionListener : BusListener {
     @Listen
     fun onResponsePacket(event: ResponsePacketEvent) {
         event.players.max = 69
-        event.description.text = "hey"
+        event.description = ChatComponent()
+            .text("hey")
+            .bold(true)
+            .color(ChatColor.CYAN)
+            .child {
+                it.text(" child")
+                    .color(ChatColor.RED)
+            }
     }
 
     @Listen

@@ -1,5 +1,6 @@
 package server
 
+import chat.ChatComponent
 import event.EventBus
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.Channel
@@ -11,7 +12,6 @@ import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import protocol.packet.impl.status.Description
 import protocol.packet.impl.status.Players
 import protocol.packet.impl.status.Response
 import protocol.packet.impl.status.Version
@@ -83,7 +83,7 @@ object Server {
                 name = "1.8.9"
             ),
             players = Players(20, 0, emptyList()),
-            description = Description("hello debug uwu"),
+            description = ChatComponent("hello debug uwu"),
             favicon = ""
         )
     }

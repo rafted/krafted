@@ -1,7 +1,7 @@
 package util
 
-import chat.COLOR_ID_MAP
-import chat.ChatColor
+import chat.color.ChatColor
+import chat.color.ColorMappings
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -28,7 +28,7 @@ object ColorSerializer : KSerializer<ChatColor> {
     override fun deserialize(decoder: Decoder): ChatColor {
         val text = decoder.decodeString()
 
-        return COLOR_ID_MAP[text] ?: ChatColor(
+        return ColorMappings.colorById(text) ?: ChatColor(
             ' ', "", "", Color.decode(text).rgb
         )
     }

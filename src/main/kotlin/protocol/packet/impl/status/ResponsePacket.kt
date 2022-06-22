@@ -1,5 +1,6 @@
 package protocol.packet.impl.status
 
+import chat.ChatComponent
 import event.Event
 import event.EventBus
 import io.netty.buffer.ByteBuf
@@ -36,15 +37,10 @@ data class Players(
 )
 
 @Serializable
-data class Description(
-    var text: String
-)
-
-@Serializable
 data class Response(
     var version: Version,
     var players: Players,
-    var description: Description,
+    var description: ChatComponent,
     var favicon: String
 ) : Event
 
