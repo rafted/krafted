@@ -2,6 +2,7 @@ package server
 
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
+import org.tinylog.kotlin.Logger
 import server.connection.Connection
 import server.connection.ConnectionEstablishedEvent
 import server.connection.State
@@ -19,7 +20,7 @@ object ServerInitializer : ChannelHandler {
             val connection = Connection(ctx.channel().id(), State.Handshake, ctx.channel())
 
             Server.connections.add(connection)
-            Server.logger.info("New Connection: ${connection.id}")
+            Logger.info("New Connection: ${connection.id}")
 
             Server.eventBus.post(ConnectionEstablishedEvent(connection))
         }
@@ -35,8 +36,8 @@ object ServerInitializer : ChannelHandler {
     }
 
 
-    @Deprecated("Deprecated in Java", ReplaceWith("Server.logger.error(\"Exception caught: \${cause?.message}\")"))
+    @Deprecated("Deprecated in Java", ReplaceWith("Logger.error(\"Exception caught: \${cause?.message}\")"))
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
-        Server.logger.error("Exception caught: ${cause?.message}")
+        Logger.error("Exception caught: ${cause?.message}")
     }
 }

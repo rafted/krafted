@@ -11,8 +11,7 @@ import io.netty.handler.logging.LoggingHandler
 import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
 import logic.listeners.PingListener
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.tinylog.kotlin.Logger
 import protocol.packet.impl.status.Players
 import protocol.packet.impl.status.Response
 import protocol.packet.impl.status.Version
@@ -27,7 +26,6 @@ data class ServerConfig(
 object Server {
     lateinit var config: ServerConfig
 
-    val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
     val eventBus: EventBus = EventBus
 
@@ -70,9 +68,7 @@ object Server {
     }
 
     fun closeConnection(connection: Connection) {
-        this.logger.info(
-            "Removing Connection: ${connection.id}"
-        )
+        Logger.info("Removing Connection: ${connection.id}")
 
         this.connections.remove(connection)
         this.eventBus.post(ConnectionClosedEvent(connection))
