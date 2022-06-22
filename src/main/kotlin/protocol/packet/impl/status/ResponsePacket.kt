@@ -1,26 +1,52 @@
 package protocol.packet.impl.status
 
 import event.Event
+import event.EventBus
 import io.netty.buffer.ByteBuf
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import protocol.packet.Direction
 import protocol.packet.Packet
 import protocol.writeString
-import server.Server
-import server.connection.Connection
 import server.connection.State
+import util.UUIDSerializer
 import java.util.*
 
-data class Version(val protocol: Int, val name: String)
-data class Player(val name: String, val id: UUID)
-data class Players(val max: Int, val online: Int, val sample: List<Player>)
-data class Description(val text: String)
+typealias ResponsePacketEvent = Response
 
+@Serializable
+data class Version(
+    var protocol: Int,
+    var name: String
+)
+
+@Serializable
+data class Player(
+    var name: String,
+    @Serializable(with = UUIDSerializer::class)
+    var id: UUID
+)
+
+@Serializable
+data class Players(
+    var max: Int,
+    var online: Int,
+    var sample: List<Player>
+)
+
+@Serializable
+data class Description(
+    var text: String
+)
+
+@Serializable
 data class Response(
     var version: Version,
     var players: Players,
     var description: Description,
     var favicon: String
-)
+) : Event
 
 class ResponsePacket : Packet {
     override val id: Int = 0x00
@@ -29,36 +55,15 @@ class ResponsePacket : Packet {
 
     lateinit var response: Response
 
-    override fun unpack(buffer: ByteBuf) { }
+    override fun unpack(buffer: ByteBuf) {}
 
     override fun pack(buffer: ByteBuf) {
-        println(Server.gson.toJson(this.response))
-        buffer.writeString(Server.gson.toJson(this.response))
+        buffer.writeString(
+            Json.encodeToString(
+                this.response.apply {
+                    EventBus.post(this)
+                }
+            )
+        )
     }
-}
-
-data class ResponsePacketEvent(val connection: Connection, val packet: ResponsePacket) : Event {
-    var version: Version
-        get() = packet.response.version
-        set(value) {
-            packet.response.version = value
-        }
-
-    var players: Players
-        get() = packet.response.players
-        set(value) {
-            packet.response.players = value
-        }
-
-    var description: Description
-        get() = packet.response.description
-        set(value) {
-            packet.response.description = value
-        }
-
-    var favicon: String
-        get() = packet.response.favicon
-        set(value) {
-            packet.response.favicon = value
-        }
 }

@@ -1,7 +1,5 @@
 package server
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import event.EventBus
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.Channel
@@ -31,7 +29,6 @@ object Server {
     val logger: Logger = LoggerFactory.getLogger(Server::class.java)
     val connections = mutableListOf<Connection>()
     val eventBus: EventBus = EventBus
-    val gson: Gson = GsonBuilder().create()
 
     fun start(config: ServerConfig) {
         this.config = config
@@ -71,9 +68,11 @@ object Server {
     }
 
     fun closeConnection(connection: Connection) {
-        this.connections.remove(connection)
-        this.logger.info("Removed Connection: ${connection.id}")
+        this.logger.info(
+            "Removing Connection: ${connection.id}"
+        )
 
+        this.connections.remove(connection)
         this.eventBus.post(ConnectionClosedEvent(connection))
     }
 
@@ -84,7 +83,7 @@ object Server {
                 name = "1.8.9"
             ),
             players = Players(20, 0, emptyList()),
-            description = Description("A Minecraft Server"),
+            description = Description("hello debug uwu"),
             favicon = ""
         )
     }
