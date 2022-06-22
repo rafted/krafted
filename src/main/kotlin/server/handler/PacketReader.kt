@@ -26,8 +26,6 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val length = msg.readVarInt()
             val slice = msg.readSlice(length)
 
-            println(length)
-
             val connection: Connection = Server.findConnection(ctx.channel())!!
 
             val id = slice.readVarInt()
