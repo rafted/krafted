@@ -51,8 +51,6 @@ class ResponsePacket : Packet {
 
     lateinit var response: Response
 
-    override fun unpack(buffer: ByteBuf) {}
-
     override fun pack(buffer: ByteBuf) {
         buffer.writeString(
             Json.encodeToString(this.response)

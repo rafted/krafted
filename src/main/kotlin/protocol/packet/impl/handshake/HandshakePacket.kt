@@ -28,8 +28,6 @@ class HandshakePacket : Packet {
         nextState = buffer.readVarInt()
     }
 
-    override fun pack(buffer: ByteBuf) { }
-
     override fun createEvent(connection: Connection): Event {
         return HandshakePacketEvent(connection, this)
     }

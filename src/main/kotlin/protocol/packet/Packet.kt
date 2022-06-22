@@ -10,8 +10,8 @@ interface Packet {
     val state: State
     val direction: Direction
 
-    fun unpack(buffer: ByteBuf)
-    fun pack(buffer: ByteBuf)
+    fun unpack(buffer: ByteBuf) {}
+    fun pack(buffer: ByteBuf) {}
 
     fun createEvent(connection: Connection): Event? {
         return null
