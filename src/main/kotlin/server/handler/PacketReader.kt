@@ -40,6 +40,10 @@ class PacketReader : ChannelInboundHandlerAdapter() {
                 EventBus.post(
                     PacketEvent(packet, connection)
                 )
+
+                packet.createEvent(connection)?.let {
+                    EventBus.post(it)
+                }
             }
         }
     }

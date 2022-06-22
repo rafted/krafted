@@ -2,7 +2,6 @@ package protocol.packet.impl.status
 
 import chat.ChatComponent
 import event.Event
-import event.EventBus
 import io.netty.buffer.ByteBuf
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -10,6 +9,7 @@ import kotlinx.serialization.json.Json
 import protocol.packet.Direction
 import protocol.packet.Packet
 import protocol.writeString
+import server.connection.Connection
 import server.connection.State
 import util.UUIDSerializer
 import java.util.*
@@ -55,11 +55,11 @@ class ResponsePacket : Packet {
 
     override fun pack(buffer: ByteBuf) {
         buffer.writeString(
-            Json.encodeToString(
-                this.response.apply {
-                    EventBus.post(this)
-                }
-            ).also { println(it) }
+            Json.encodeToString(this.response)
         )
+    }
+
+    override fun createEvent(connection: Connection): Event {
+        return this.response
     }
 }

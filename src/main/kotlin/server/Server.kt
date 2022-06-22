@@ -10,7 +10,6 @@ import io.netty.handler.logging.LogLevel
 import io.netty.handler.logging.LoggingHandler
 import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
-import logic.listeners.PacketListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import protocol.packet.impl.status.Players
@@ -62,7 +61,6 @@ object Server {
     private fun registerListeners() {
         EventBus.subscribe(HandshakeListener)
         EventBus.subscribe(ConnectionListener)
-        EventBus.subscribe(PacketListener)
     }
 
     fun findConnection(channel: Channel): Connection? {

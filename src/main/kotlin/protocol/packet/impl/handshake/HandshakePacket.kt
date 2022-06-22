@@ -29,6 +29,10 @@ class HandshakePacket : Packet {
     }
 
     override fun pack(buffer: ByteBuf) { }
+
+    override fun createEvent(connection: Connection): Event {
+        return HandshakePacketEvent(connection, this)
+    }
 }
 
 data class HandshakePacketEvent(val connection: Connection, val packet: HandshakePacket) : Event

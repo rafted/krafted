@@ -12,6 +12,10 @@ interface Packet {
 
     fun unpack(buffer: ByteBuf)
     fun pack(buffer: ByteBuf)
+
+    fun createEvent(connection: Connection): Event? {
+        return null
+    }
 }
 
 class PacketEvent(val packet: Packet, val connection: Connection) : Event
