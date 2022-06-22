@@ -20,7 +20,7 @@ class PacketEncoder : MessageToByteEncoder<Packet>() {
             .buffer()
 
         msg.pack(temp)
-        out.writeVarInt(temp.readableBytes() + msg.id.varIntSize())
+        out.writeVarInt(temp.readableBytes() + msg.id.varIntSize() + 1)
         out.writeVarInt(msg.id)
 
         out.writeBytes(temp)
