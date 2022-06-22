@@ -10,7 +10,7 @@ import server.connection.Connection
 import server.connection.State
 import java.util.*
 
-data class Version(val protocolVersion: Int, val serverVersion: String)
+data class Version(val protocol: Int, val name: String)
 data class Player(val name: String, val id: UUID)
 data class Players(val max: Int, val online: Int, val sample: List<Player>)
 data class Description(val text: String)

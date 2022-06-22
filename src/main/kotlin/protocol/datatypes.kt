@@ -5,6 +5,22 @@ import io.netty.buffer.ByteBuf
 private const val SEGMENT_BITS = 0x7F
 private const val CONTINUE_BIT = 0x80
 
+fun Int.varIntSize(): Int {
+    var i = this
+    var size = 0
+
+    while (i and -0x80 != 0x0) {
+        size++
+        i = i ushr 7
+
+        if (size > 5) {
+            throw IllegalArgumentException("VarInt is longer than 5 bytes.")
+        }
+    }
+
+    return size
+}
+
 fun ByteBuf.readVarInt(): Int {
     var value = 0
     var position = 0

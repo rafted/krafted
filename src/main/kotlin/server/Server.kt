@@ -80,8 +80,8 @@ object Server {
     fun makeStatusRespose(): Response {
         return Response(
             version = Version(
-                protocolVersion = 47,
-                serverVersion = "1.8.9"
+                protocol = 47,
+                name = "1.8.9"
             ),
             players = Players(20, 0, emptyList()),
             description = Description("A Minecraft Server"),
