@@ -59,7 +59,7 @@ class ResponsePacket : Packet {
                 this.response.apply {
                     EventBus.post(this)
                 }
-            )
+            ).also { println(it) }
         )
     }
 }

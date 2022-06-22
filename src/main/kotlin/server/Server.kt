@@ -83,7 +83,7 @@ object Server {
                 name = "1.8.9"
             ),
             players = Players(20, 0, emptyList()),
-            description = ChatComponent("hello debug uwu"),
+            description = ChatComponent().text("Krafted - Server"),
             favicon = ""
         )
     }

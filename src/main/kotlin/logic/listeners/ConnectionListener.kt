@@ -7,6 +7,7 @@ import event.Listen
 import protocol.packet.impl.status.ResponsePacketEvent
 import server.connection.ConnectionClosedEvent
 import server.connection.ConnectionEstablishedEvent
+import java.awt.Color
 
 object ConnectionListener : BusListener {
 
@@ -21,6 +22,12 @@ object ConnectionListener : BusListener {
             .child {
                 it.text(" child")
                     .color(ChatColor.RED)
+                    .bold(false)
+            }
+            .child {
+                it.text(" second child")
+                    .color(ChatColor.PINK)
+                    .bold(false)
             }
     }
 

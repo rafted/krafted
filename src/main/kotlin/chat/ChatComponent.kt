@@ -6,11 +6,13 @@ import util.ColorSerializer
 
 @Serializable
 data class ChatComponent(
-    var text: String = "",
-    var bold: Boolean = false,
+    var text: String,
+    var bold: Boolean,
     var color: @Serializable(with = ColorSerializer::class) ChatColor = ChatColor.WHITE,
     val extra: MutableList<ChatComponent> = mutableListOf(),
 ) {
+    constructor() : this("", false)
+
     fun text(text: String): ChatComponent {
         this.text = text
         return this
