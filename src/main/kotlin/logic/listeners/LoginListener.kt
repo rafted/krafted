@@ -2,14 +2,14 @@ package logic.listeners
 
 import event.BusListener
 import event.Listen
-import protocol.packet.impl.login.clientbound.LoginEvent
+import protocol.packet.impl.login.clientbound.LoginSuccessEvent
 import protocol.packet.impl.login.clientbound.LoginSuccessPacket
 import protocol.packet.impl.login.serverbound.LoginStartEvent
 import server.connection.State
 
 object LoginListener : BusListener {
     @Listen
-    fun onLoginSuccess(event: LoginEvent) {
+    fun onLoginSuccess(event: LoginSuccessEvent) {
         event.connection.state = State.Play
     }
 
