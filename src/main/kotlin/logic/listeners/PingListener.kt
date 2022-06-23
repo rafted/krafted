@@ -3,8 +3,8 @@ package logic.listeners
 import event.BusListener
 import event.Listen
 import protocol.packet.impl.status.PingPacketEvent
-import protocol.packet.impl.status.PongPacket
-import protocol.packet.impl.status.PongPacketEvent
+import protocol.packet.impl.status.clientbound.PongPacket
+import protocol.packet.impl.status.clientbound.PongPacketEvent
 
 object PingListener : BusListener {
 

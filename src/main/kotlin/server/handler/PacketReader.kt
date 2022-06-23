@@ -24,7 +24,7 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val connection: Connection = Server.findConnection(ctx.channel())!!
 
             val id = slice.readVarInt()
-            val packet = PacketRegistry.findPacket(id, connection.state, Direction.Client)?.invoke() ?: return
+            val packet = PacketRegistry.findPacket(id, connection.state, Direction.Serverbound)?.invoke() ?: return
 
             packet.unpack(connection, slice)
 

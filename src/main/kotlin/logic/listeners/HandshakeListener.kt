@@ -2,9 +2,9 @@ package logic.listeners
 
 import event.BusListener
 import event.Listen
-import protocol.packet.impl.handshake.HandshakePacketEvent
-import protocol.packet.impl.status.RequestPacketEvent
-import protocol.packet.impl.status.ResponsePacket
+import protocol.packet.impl.handshake.serverbound.HandshakePacketEvent
+import protocol.packet.impl.status.clientbound.ResponsePacket
+import protocol.packet.impl.status.serverbound.RequestPacketEvent
 import server.Server
 import server.connection.State
 
