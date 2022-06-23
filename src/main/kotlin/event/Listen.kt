@@ -1,3 +1,3 @@
 package event
 
-annotation class Listen()
+annotation class Listen

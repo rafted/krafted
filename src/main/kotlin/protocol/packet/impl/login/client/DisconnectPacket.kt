@@ -4,7 +4,6 @@ import chat.ChatComponent
 import io.netty.buffer.ByteBuf
 import protocol.packet.Direction
 import protocol.packet.Packet
-import protocol.readChatComponent
 import protocol.writeChatComponent
 import server.connection.Connection
 import server.connection.State

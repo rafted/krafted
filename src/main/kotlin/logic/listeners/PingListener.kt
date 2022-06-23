@@ -19,5 +19,4 @@ object PingListener : BusListener {
     @Listen
     fun onPong(event: PongPacketEvent) {
     }
-
 }

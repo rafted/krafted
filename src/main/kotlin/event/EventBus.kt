@@ -2,7 +2,6 @@ package event
 
 import org.tinylog.kotlin.Logger
 import protocol.packet.PacketEvent
-import server.Server
 
 interface Event
 
@@ -47,7 +46,7 @@ object EventBus {
     }
 
     fun <T : Event> post(event: T) {
-        if(event !is PacketEvent) {
+        if (event !is PacketEvent) {
             Logger.debug(event.javaClass.simpleName + " posted")
         }
 

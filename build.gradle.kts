@@ -1,4 +1,4 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -24,7 +24,6 @@ dependencies {
     implementation("org.tinylog:tinylog-api-kotlin:2.4.1")
     implementation("org.tinylog:tinylog-impl:2.4.1")
     implementation("com.konghq:unirest-java:3.13.6")
-
 }
 
 tasks.test {

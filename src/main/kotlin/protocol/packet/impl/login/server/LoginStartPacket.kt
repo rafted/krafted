@@ -28,7 +28,6 @@ class LoginStartPacket : Packet {
 
     lateinit var name: String
 
-
     override fun unpack(connection: Connection, buffer: ByteBuf) {
         name = buffer.readString()
 

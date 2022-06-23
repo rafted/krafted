@@ -3,11 +3,8 @@ package protocol.packet.impl.login.client
 import io.netty.buffer.ByteBuf
 import protocol.packet.Direction
 import protocol.packet.Packet
-import protocol.readString
-import protocol.readVarInt
 import server.connection.Connection
 import server.connection.State
-import kotlin.properties.Delegates
 
 class EncryptionRequestPacket : Packet {
     override val id = 0x01

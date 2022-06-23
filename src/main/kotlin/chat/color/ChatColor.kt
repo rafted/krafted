@@ -2,7 +2,6 @@ package chat.color
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class ChatColor(
     val code: Char,
