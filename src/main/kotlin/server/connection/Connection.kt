@@ -9,6 +9,8 @@ data class Connection(
     var state: State,
     val channel: Channel
 ) {
+    lateinit var name: String
+
     fun send(packet: Packet) {
         channel.writeAndFlush(packet)
     }

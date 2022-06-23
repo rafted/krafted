@@ -29,23 +29,22 @@ class PacketReader : ChannelInboundHandlerAdapter() {
             val connection: Connection = Server.findConnection(ctx.channel())!!
 
             val id = slice.readVarInt()
+            val packet = PacketRegistry.findPacket(id, connection.state, Direction.Client)?.invoke() ?: return
 
-            PacketRegistry.findPacket(id, connection.state, Direction.Client)?.let {
-                val packet = it().apply {
-                    unpack(slice)
-                }
+            packet.unpack(connection, slice)
 
-                EventBus.post(
-                    PacketEvent(packet, connection)
-                )
+            EventBus.post(
+                PacketEvent(packet, connection)
+            )
 
-                packet.createEvent(connection)?.let {
-                    EventBus.post(it)
-                }
+            packet.createEvent(connection)?.let {
+                EventBus.post(it)
             }
         }
     }
 
+
+    @Deprecated("Deprecated in Java")
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         if (ctx != null) {
             Server.findConnection(ctx.channel())?.let {

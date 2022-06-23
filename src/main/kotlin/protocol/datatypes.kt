@@ -1,6 +1,11 @@
 package protocol
 
+import chat.ChatComponent
 import io.netty.buffer.ByteBuf
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.util.UUID
 
 private const val SEGMENT_BITS = 0x7F
 private const val CONTINUE_BIT = 0x80
@@ -63,6 +68,16 @@ fun ByteBuf.readVarLong(): Long {
     return value
 }
 
+fun ByteBuf.readChatComponent(): ChatComponent {
+    return Json.decodeFromString(
+        readString()
+    )
+}
+
+fun ByteBuf.writeChatComponent(component: ChatComponent) {
+    writeString(Json.encodeToString(component))
+}
+
 fun ByteBuf.readString(): String {
     val length = readVarInt()
     val bytes = readBytes(length)
@@ -99,4 +114,17 @@ fun ByteBuf.writeVarLong(data: Long) {
         writeByte((value and SEGMENT_BITS.toLong() or CONTINUE_BIT.toLong()).toInt())
         value = value ushr 7
     }
+}
+
+
+fun ByteBuf.readVarBoolean(): Boolean {
+    return this.readByte() == 0x01.toByte()
+}
+
+fun ByteBuf.writeVarBoolean(boolean: Boolean) {
+    this.writeByte(if (boolean) 0x01 else 0x00)
+}
+
+fun ByteBuf.readUniqueId(): UUID {
+    return UUID(readVarLong(), readVarLong())
 }

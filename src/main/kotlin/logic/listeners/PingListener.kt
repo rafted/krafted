@@ -11,8 +11,8 @@ object PingListener : BusListener {
     @Listen
     fun onPing(event: PingPacketEvent) {
         val pong = PongPacket()
-        pong.payload = event.packet.payload
 
+        pong.payload = event.packet.payload
         event.connection.send(pong)
     }
 

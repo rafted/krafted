@@ -15,7 +15,7 @@ class PongPacket : Packet {
 
     var payload by Delegates.notNull<Long>()
 
-    override fun pack(buffer: ByteBuf) {
+    override fun pack(connection: Connection, buffer: ByteBuf) {
         buffer.writeLong(payload)
     }
 

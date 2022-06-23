@@ -6,13 +6,13 @@ import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
 import protocol.packet.Packet
+import protocol.packet.PacketEvent
 import protocol.varIntSize
 import protocol.writeVarInt
 import server.Server
 import server.connection.Connection
 
 class PacketEncoder : MessageToByteEncoder<Packet>() {
-
     override fun encode(ctx: ChannelHandlerContext?, msg: Packet?, out: ByteBuf?) {
         if (ctx == null || msg == null || out == null) {
             return
@@ -30,7 +30,7 @@ class PacketEncoder : MessageToByteEncoder<Packet>() {
             .alloc()
             .buffer()
 
-        msg.pack(temp)
+        msg.pack(connection, temp)
         out.writeVarInt(temp.readableBytes() + msg.id.varIntSize() + 1)
         out.writeVarInt(msg.id)
 

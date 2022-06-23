@@ -15,11 +15,11 @@ class PingPacket : Packet {
 
     var payload by Delegates.notNull<Long>()
 
-    override fun unpack(buffer: ByteBuf) {
+    override fun unpack(connection: Connection, buffer: ByteBuf) {
         this.payload = buffer.readLong()
     }
 
-    override fun createEvent(connection: Connection): Event? {
+    override fun createEvent(connection: Connection): Event {
         return PingPacketEvent(connection, this)
     }
 }

@@ -21,7 +21,7 @@ class HandshakePacket : Packet {
     var serverPort by Delegates.notNull<Int>()
     var nextState by Delegates.notNull<Int>()
 
-    override fun unpack(buffer: ByteBuf) {
+    override fun unpack(connection: Connection, buffer: ByteBuf) {
         protocolVersion = buffer.readVarInt()
         serverAddress = buffer.readString()
         serverPort = buffer.readUnsignedShort()

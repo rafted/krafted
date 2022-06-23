@@ -10,6 +10,7 @@ import io.netty.handler.logging.LogLevel
 import io.netty.handler.logging.LoggingHandler
 import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
+import logic.listeners.LoginListener
 import logic.listeners.PingListener
 import org.tinylog.kotlin.Logger
 import protocol.packet.impl.status.Players
@@ -61,6 +62,7 @@ object Server {
         EventBus.subscribe(HandshakeListener)
         EventBus.subscribe(ConnectionListener)
         EventBus.subscribe(PingListener)
+        EventBus.subscribe(LoginListener)
     }
 
     fun findConnection(channel: Channel): Connection? {

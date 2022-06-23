@@ -1,6 +1,10 @@
 package protocol.packet
 
 import protocol.packet.impl.handshake.HandshakePacket
+import protocol.packet.impl.login.client.DisconnectPacket
+import protocol.packet.impl.login.client.EncryptionRequestPacket
+import protocol.packet.impl.login.client.LoginSuccessPacket
+import protocol.packet.impl.login.server.LoginStartPacket
 import protocol.packet.impl.status.PingPacket
 import protocol.packet.impl.status.PongPacket
 import protocol.packet.impl.status.RequestPacket
@@ -18,12 +22,20 @@ object PacketRegistry {
                 0x00 to { RequestPacket() },
                 0x01 to { PingPacket() }
             ),
+            State.Login to mapOf(
+                0x00 to { LoginStartPacket() }
+            )
         ),
         Direction.Server to mapOf(
             State.Status to mapOf(
                 0x00 to { ResponsePacket() },
                 0x01 to { PongPacket() }
             ),
+            State.Login to mapOf(
+                0x00 to { DisconnectPacket() },
+                0x01 to { EncryptionRequestPacket() },
+                0x02 to { LoginSuccessPacket() }
+            )
         ),
     )
 
