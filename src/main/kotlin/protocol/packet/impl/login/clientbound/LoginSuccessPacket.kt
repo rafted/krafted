@@ -8,7 +8,7 @@ import protocol.packet.Packet
 import server.connection.Connection
 import server.connection.State
 import util.NameUtil
-class LoginEvent(val connection: Connection, val packet: LoginSuccessPacket) : Event
+class LoginSuccessEvent(val connection: Connection, val packet: LoginSuccessPacket) : Event
 
 class LoginSuccessPacket : Packet {
     override val id = 0x02
@@ -22,6 +22,6 @@ class LoginSuccessPacket : Packet {
     }
 
     override fun createEvent(connection: Connection): Event {
-        return LoginEvent(connection, this)
+        return LoginSuccessEvent(connection, this)
     }
 }
