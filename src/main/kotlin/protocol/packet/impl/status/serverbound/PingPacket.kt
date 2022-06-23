@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 class PingPacket : Packet {
     override val id: Int = 0x01
     override val state: State = State.Status
-    override val direction: Direction = Direction.Client
+    override val direction: Direction = Direction.Serverbound
 
     var payload by Delegates.notNull<Long>()
 

@@ -1,4 +1,4 @@
-package protocol.packet.impl.status
+package protocol.packet.impl.status.clientbound
 
 import event.Event
 import io.netty.buffer.ByteBuf
@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 class PongPacket : Packet {
     override val id: Int = 0x01
     override val state: State = State.Status
-    override val direction: Direction = Direction.Server
+    override val direction: Direction = Direction.Clientbound
 
     var payload by Delegates.notNull<Long>()
 

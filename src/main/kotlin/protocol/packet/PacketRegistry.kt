@@ -1,10 +1,10 @@
 package protocol.packet
 
 import protocol.packet.impl.handshake.HandshakePacket
-import protocol.packet.impl.login.client.DisconnectPacket
-import protocol.packet.impl.login.client.EncryptionRequestPacket
-import protocol.packet.impl.login.client.LoginSuccessPacket
-import protocol.packet.impl.login.server.LoginStartPacket
+import protocol.packet.impl.login.clientbound.DisconnectPacket
+import protocol.packet.impl.login.clientbound.EncryptionRequestPacket
+import protocol.packet.impl.login.clientbound.LoginSuccessPacket
+import protocol.packet.impl.login.serverbound.LoginStartPacket
 import protocol.packet.impl.status.PingPacket
 import protocol.packet.impl.status.PongPacket
 import protocol.packet.impl.status.RequestPacket

@@ -1,4 +1,4 @@
-package protocol.packet.impl.handshake
+package protocol.packet.impl.handshake.serverbound
 
 import event.Event
 import io.netty.buffer.ByteBuf
@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 
 class HandshakePacket : Packet {
     override val id = 0x00
-    override val direction = Direction.Client
+    override val direction = Direction.Serverbound
     override val state = State.Handshake
 
     lateinit var serverAddress: String

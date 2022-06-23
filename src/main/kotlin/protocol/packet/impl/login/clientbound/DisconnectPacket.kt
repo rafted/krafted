@@ -1,4 +1,4 @@
-package protocol.packet.impl.login.client
+package protocol.packet.impl.login.clientbound
 
 import chat.ChatComponent
 import io.netty.buffer.ByteBuf
@@ -11,7 +11,7 @@ import server.connection.State
 class DisconnectPacket(var reason: ChatComponent? = null) : Packet {
     override val id = 0x00
     override val state = State.Login
-    override val direction = Direction.Server
+    override val direction = Direction.Serverbound
 
     fun reason(reason: ChatComponent): DisconnectPacket {
         return this.apply {

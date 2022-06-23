@@ -1,4 +1,4 @@
-package protocol.packet.impl.login.server
+package protocol.packet.impl.login.serverbound
 
 import event.Event
 import io.netty.buffer.ByteBuf
@@ -14,7 +14,7 @@ class LoginStartEvent(val connection: Connection, val packet: LoginStartPacket) 
 class LoginStartPacket : Packet {
     override val id = 0x00
     override val state = State.Login
-    override val direction = Direction.Client
+    override val direction = Direction.Serverbound
 
     var sigData by Delegates.notNull<Boolean>()
 
