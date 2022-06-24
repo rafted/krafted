@@ -14,7 +14,6 @@ import server.connection.State
 import util.UUIDSerializer
 import java.util.*
 
-typealias ResponsePacketEvent = Response
 
 @Serializable
 data class Version(

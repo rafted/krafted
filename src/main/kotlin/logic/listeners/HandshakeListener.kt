@@ -25,8 +25,8 @@ object HandshakeListener : BusListener {
     fun onRequest(event: RequestPacketEvent) {
         if (event.connection.state == State.Status) {
             val packet = ResponsePacket()
-            packet.response = Server.makeStatusRespose()
 
+            packet.response = Server.makeStatusRespose()
             event.connection.send(packet)
         }
     }

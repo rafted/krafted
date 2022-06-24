@@ -24,6 +24,9 @@ dependencies {
     implementation("org.tinylog:tinylog-api-kotlin:2.4.1")
     implementation("org.tinylog:tinylog-impl:2.4.1")
     implementation("com.konghq:unirest-java:3.13.6")
+
+    implementation("com.akuleshov7:ktoml-core:0.2.11")
+    implementation("com.akuleshov7:ktoml-file:0.2.11")
 }
 
 tasks.test {
