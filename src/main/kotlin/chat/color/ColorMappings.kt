@@ -4,13 +4,13 @@ object ColorMappings {
     private fun mapId(
         color: ChatColor
     ): Pair<String, ChatColor> {
-        return color.id to color
+        return (color.id ?: throw IllegalArgumentException("Provided color is not a vanilla color")) to color
     }
 
     private fun mapCode(
         color: ChatColor
     ): Pair<Char, ChatColor> {
-        return color.code to color
+        return (color.code ?: throw IllegalArgumentException("Provided color is not a vanilla color")) to color
     }
 
     private val COLOR_ID_MAP = hashMapOf(

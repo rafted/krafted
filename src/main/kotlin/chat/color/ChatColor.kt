@@ -2,12 +2,11 @@ package chat.color
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class ChatColor(
-    val code: Char,
-    val commonName: String,
-    val id: String,
+    val code: Char? = null,
+    val commonName: String? = null,
+    val id: String? = null,
     val rgb: Int,
     val vanilla: Boolean = false
 ) {
@@ -33,32 +32,13 @@ data class ChatColor(
         val GRAY = ChatColor('7', "Gray", "gray", 170, 170, 170, true)
         val DARK_GRAY = ChatColor('8', "Dark gray", "dark_gray", 85, 85, 85, true)
         val BLUE = ChatColor('9', "Blue", "blue", 85, 85, 255, true)
-        val LIGHT_GREEN = ChatColor('a', "Bright green", "light_green", 85, 255, 85, true) // TODO: 6/22/2022 appears as grey
+        val LIGHT_GREEN =
+            ChatColor('a', "Bright green", "light_green", 85, 255, 85, true) // TODO: 6/22/2022 appears as grey
         val CYAN = ChatColor('b', "Cyan", "aqua", 85, 255, 255, true)
         val RED = ChatColor('c', "Red", "red", 255, 85, 85, true)
         val PINK = ChatColor('d', "Pink", "light_purple", 255, 85, 255, true)
         val YELLOW = ChatColor('e', "Yellow", "yellow", 255, 255, 85, true)
         val WHITE = ChatColor('f', "White", "white", 255, 255, 255, true)
-
-        fun fromMap(map: Map<String, String>): ChatColor {
-            return ChatColor(
-                map["code"]!!.toCharArray()[0],
-                map["commonName"]!!,
-                map["id"]!!,
-                map["rgb"]!!.toInt(),
-                map["vanilla"]!!.toBoolean()
-            )
-        }
-    }
-
-    fun toMap(): Map<String, Any> {
-        return hashMapOf(
-            "code" to code,
-            "commonName" to commonName,
-            "id" to id,
-            "rgb" to rgb,
-            "vanilla" to vanilla
-        )
     }
 }
 

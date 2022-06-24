@@ -46,15 +46,16 @@ private object ColorSerializer : KSerializer<ChatColor> {
     override fun deserialize(decoder: Decoder): ChatColor {
         val text = decoder.decodeString()
 
-        return ColorMappings.colorById(text) ?: ChatColor(
-            ' ', "", "", Color.decode(text).rgb
-        )
+        return ColorMappings.colorById(text)
+            ?: ChatColor(
+                rgb = Color.decode(text).rgb
+            )
     }
 
     override fun serialize(encoder: Encoder, value: ChatColor) {
         encoder.encodeString(
             if (value.vanilla) {
-                value.id
+                value.id!!
             } else {
                 Integer.toHexString(value.rgb)
             }
