@@ -13,9 +13,9 @@ import logic.listeners.HandshakeListener
 import logic.listeners.LoginListener
 import logic.listeners.PingListener
 import org.tinylog.kotlin.Logger
-import protocol.packet.impl.status.Players
-import protocol.packet.impl.status.Response
-import protocol.packet.impl.status.Version
+import protocol.packet.impl.status.clientbound.Players
+import protocol.packet.impl.status.clientbound.Response
+import protocol.packet.impl.status.clientbound.Version
 import server.connection.Connection
 import server.connection.ConnectionClosedEvent
 

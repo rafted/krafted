@@ -31,10 +31,8 @@ object ServerInitializer : ChannelHandler {
             it.id == ctx?.channel()?.id()
         } ?: return
 
-
         Server.closeConnection(connection)
     }
-
 
     @Deprecated("Deprecated in Java", ReplaceWith("Logger.error(\"Exception caught: \${cause?.message}\")"))
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {

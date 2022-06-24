@@ -2,11 +2,9 @@ package server.handler
 
 import event.EventBus
 import io.netty.buffer.ByteBuf
-import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
 import protocol.packet.Packet
-import protocol.packet.PacketEvent
 import protocol.varIntSize
 import protocol.writeVarInt
 import server.Server

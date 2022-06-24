@@ -1,4 +1,4 @@
-package protocol.packet.impl.status
+package protocol.packet.impl.status.clientbound
 
 import chat.ChatComponent
 import event.Event
@@ -47,7 +47,7 @@ data class Response(
 class ResponsePacket : Packet {
     override val id: Int = 0x00
     override val state: State = State.Status
-    override val direction: Direction = Direction.Server
+    override val direction: Direction = Direction.Clientbound
 
     lateinit var response: Response
 

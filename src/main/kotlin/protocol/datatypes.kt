@@ -116,7 +116,6 @@ fun ByteBuf.writeVarLong(data: Long) {
     }
 }
 
-
 fun ByteBuf.readVarBoolean(): Boolean {
     return this.readByte() == 0x01.toByte()
 }

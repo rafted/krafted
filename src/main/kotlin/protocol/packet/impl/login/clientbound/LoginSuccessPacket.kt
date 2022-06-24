@@ -1,4 +1,4 @@
-package protocol.packet.impl.login.client
+package protocol.packet.impl.login.clientbound
 
 import event.Event
 import io.netty.buffer.ByteBuf
@@ -8,12 +8,12 @@ import protocol.packet.Packet
 import server.connection.Connection
 import server.connection.State
 import util.NameUtil
-class LoginEvent(val connection: Connection, val packet: LoginSuccessPacket) : Event
+class LoginSuccessEvent(val connection: Connection, val packet: LoginSuccessPacket) : Event
 
 class LoginSuccessPacket : Packet {
     override val id = 0x02
     override val state = State.Login
-    override val direction = Direction.Server
+    override val direction = Direction.Clientbound
 
     override fun pack(connection: Connection, buffer: ByteBuf) {
         buffer.writeString(NameUtil.nameToUUID(connection.name).toString())
@@ -22,6 +22,6 @@ class LoginSuccessPacket : Packet {
     }
 
     override fun createEvent(connection: Connection): Event {
-        return LoginEvent(connection, this)
+        return LoginSuccessEvent(connection, this)
     }
 }

@@ -1,4 +1,4 @@
-package protocol.packet.impl.status
+package protocol.packet.impl.status.serverbound
 
 import event.Event
 import protocol.packet.Direction
@@ -8,7 +8,7 @@ import server.connection.State
 
 class RequestPacket : Packet {
     override val id: Int = 0x00
-    override val direction: Direction = Direction.Client
+    override val direction: Direction = Direction.Serverbound
     override val state: State = State.Status
 
     override fun createEvent(connection: Connection): Event {

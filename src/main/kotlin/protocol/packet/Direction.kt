@@ -1,6 +1,13 @@
 package protocol.packet
 
 enum class Direction {
-    Client,
-    Server
+    /**
+     * Server to Client
+     */
+    Clientbound,
+
+    /**
+     * Client to Server
+     */
+    Serverbound
 }
