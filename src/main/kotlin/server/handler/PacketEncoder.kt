@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
 import protocol.packet.Packet
+import protocol.varIntSize
 import protocol.writeVarInt
 import server.Server
 import server.connection.Connection
