@@ -8,6 +8,7 @@ import protocol.packet.Packet
 import server.connection.Connection
 import server.connection.State
 import util.NameUtil
+
 class LoginSuccessEvent(val connection: Connection, val packet: LoginSuccessPacket) : Event
 
 class LoginSuccessPacket : Packet {
@@ -16,8 +17,9 @@ class LoginSuccessPacket : Packet {
     override val direction = Direction.Clientbound
 
     override fun pack(connection: Connection, buffer: ByteBuf) {
-        buffer.writeString(NameUtil.nameToUUID(connection.name).toString())
-        buffer.writeString(connection.name)
+        // TODO: Offline mode
+        buffer.writeString(NameUtil.nameToUUID(connection.username).toString())
+        buffer.writeString(connection.username)
         buffer.writeVarInt(0)
     }
 

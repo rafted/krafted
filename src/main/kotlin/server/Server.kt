@@ -2,7 +2,6 @@ package server
 
 import chat.ChatComponent
 import chat.color.ChatColor
-import com.akuleshov7.ktoml.Toml
 import event.EventBus
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.Channel
@@ -14,7 +13,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import logic.listeners.ConnectionListener
 import logic.listeners.HandshakeListener
 import logic.listeners.LoginListener
@@ -102,10 +100,10 @@ object Server {
     private fun loadServerConfig(): ServerConfig {
         val file = File(
             "server.${
-                format.javaClass
-                    .simpleName
-                    .lowercase()
-                    .replace("impl", "")
+            format.javaClass
+                .simpleName
+                .lowercase()
+                .replace("impl", "")
             }"
         )
 

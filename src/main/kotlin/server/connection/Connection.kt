@@ -9,7 +9,7 @@ data class Connection(
     var state: State,
     val channel: Channel
 ) {
-    lateinit var name: String
+    lateinit var username: String
 
     fun send(packet: Packet) {
         channel.writeAndFlush(packet)

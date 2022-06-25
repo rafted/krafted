@@ -26,10 +26,10 @@ class LoginStartPacket : Packet {
     var publicKey: ByteArray? = null
     var signature: ByteArray? = null
 
-    lateinit var name: String
+    lateinit var username: String
 
     override fun unpack(connection: Connection, buffer: ByteBuf) {
-        name = buffer.readString()
+        username = buffer.readString()
 
         if (buffer.readableBytes() > 0) {
             sigData = buffer.readVarBoolean()
@@ -44,7 +44,7 @@ class LoginStartPacket : Packet {
                 signature = buffer.readBytes(signatureLength!!).array()
             }
 
-            connection.name = name
+            connection.username = username
         }
     }
 

@@ -14,7 +14,6 @@ import server.connection.State
 import util.UUIDSerializer
 import java.util.*
 
-
 @Serializable
 data class Version(
     var protocol: Int,
