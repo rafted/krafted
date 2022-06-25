@@ -1,5 +1,6 @@
 package util
 
+import kong.unirest.Cache.builder
 import kong.unirest.Unirest
 import kong.unirest.json.JSONObject
 import java.util.*
@@ -7,6 +8,13 @@ import java.util.*
 // TODO: 6/23/2022 change this to not use Unirest, just simply copy-pasted this from my old code.
 object NameUtil {
     private const val MOJANG_ENDPOINT = "https://api.mojang.com/"
+
+    init {
+        Unirest.config()
+            .cacheResponses(builder()
+                .depth(Integer.MAX_VALUE)
+            )
+    }
 
     fun nameToUUID(name: String): UUID {
         val response = Unirest
