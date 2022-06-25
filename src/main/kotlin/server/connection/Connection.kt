@@ -9,6 +9,7 @@ data class Connection(
     var state: State,
     val channel: Channel
 ) {
+    lateinit var uuid: String
     lateinit var username: String
 
     fun send(packet: Packet) {

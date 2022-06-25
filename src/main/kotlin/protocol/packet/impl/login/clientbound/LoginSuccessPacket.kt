@@ -18,7 +18,9 @@ class LoginSuccessPacket : Packet {
 
     override fun pack(connection: Connection, buffer: ByteBuf) {
         // TODO: Offline mode
-        buffer.writeString(NameUtil.nameToUUID(connection.username).toString())
+        connection.uuid = NameUtil.nameToUUID(connection.username).toString()
+
+        buffer.writeString(connection.uuid)
         buffer.writeString(connection.username)
         buffer.writeVarInt(0)
     }
