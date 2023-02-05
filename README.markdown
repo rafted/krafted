@@ -3,7 +3,7 @@ A Minecraft: Java Edition server implementation aiming at being highly performan
 Licensed under the MIT License.
 
 ## State of the project
-Krafted is not yet suitable for production.
+Krafted is abandoned.
 
 # Acknowledgements
 Thanks to #mcdevs @ irc.libera.chat for their research around the Minecraft protocol
